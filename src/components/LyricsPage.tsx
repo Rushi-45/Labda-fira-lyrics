@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { lyricsPages } from "../constants/lyrics";
 import Howler from "react-howler";
-import { FaPlay, FaPause, FaYoutube } from "react-icons/fa";
+import { FaPlay, FaPause } from "react-icons/fa";
 import labda_fira from "../assets/audio/labda_fira.mp3";
 import { FiVolume2 } from "react-icons/fi";
 import { IIdleTimer, useIdleTimer } from "react-idle-timer";
 import { IoClose } from "react-icons/io5";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { Tooltip } from "./common/Tooltip";
+import YouTubeButton from "./YoutubeBUtton";
 
 const LINES_PER_PAGE = 4;
-const YOUTUBE_URL = "https://www.youtube.com/watch?v=J1NBbKr1hZY";
 const volumeVariants = {
   small: { width: "2rem", opacity: 1 },
   large: { width: "4rem", opacity: 1 },
@@ -95,7 +95,7 @@ const LyricsPage = () => {
 
   return (
     <div
-      className="h-screen flex flex-col justify-center items-center relative w-full px-4 sm:px-8 md:px-20 lg:px-32 z-10 overflow-hidden"
+      className="h-[90%] flex flex-col justify-center items-center relative w-full px-4 sm:px-8 md:px-20 lg:px-32 z-10 overflow-hidden"
       onWheel={handleScroll}
     >
       <motion.div
@@ -179,7 +179,7 @@ const LyricsPage = () => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="absolute bottom-20 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-4"
+        className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-4"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -222,23 +222,7 @@ const LyricsPage = () => {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
           />
         </motion.div>
-        <Tooltip text="Watch on YouTube">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-            className="bg-gray-900 bg-opacity-90 rounded-lg p-3 sm:p-4 shadow-lg"
-          >
-            <a
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-red-500 hover:text-red-700 transition text-4xl"
-            >
-              <FaYoutube />
-            </a>
-          </motion.div>
-        </Tooltip>
+        <YouTubeButton />
       </motion.div>
 
       <Howler

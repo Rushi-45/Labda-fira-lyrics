@@ -11,7 +11,15 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto px-4 text-center">
         <p>
           Lyrics from <span className="font-semibold">Labda Fira</span> by
-          <span className="font-semibold"> Taran Singh</span>
+          <a
+            href="https://www.instagram.com/ayootaran/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-blue-400 hover:text-blue-500 transition-all duration-200"
+          >
+            {" "}
+            Taran Singh
+          </a>
         </p>
         <p className="mt-1 text-[8px] sm:text-xs opacity-80 leading-tight sm:leading-normal">
           This website is for educational & non-commercial purposes only.
