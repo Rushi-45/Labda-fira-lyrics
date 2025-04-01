@@ -12,6 +12,10 @@ import { Tooltip } from "./common/Tooltip";
 
 const LINES_PER_PAGE = 4;
 const YOUTUBE_URL = "https://www.youtube.com/watch?v=J1NBbKr1hZY";
+const volumeVariants = {
+  small: { width: "2rem", opacity: 1 },
+  large: { width: "4rem", opacity: 1 },
+};
 
 const LyricsPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -91,7 +95,7 @@ const LyricsPage = () => {
 
   return (
     <div
-      className="h-screen flex flex-col justify-center items-center relative w-full px-8 md:px-20 lg:px-32 z-10 overflow-hidden"
+      className="h-screen flex flex-col justify-center items-center relative w-full px-4 sm:px-8 md:px-20 lg:px-32 z-10 overflow-hidden"
       onWheel={handleScroll}
     >
       <motion.div
@@ -100,7 +104,7 @@ const LyricsPage = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
         transition={{ duration: 0.8 }}
-        className="flex flex-col gap-4 font-montserrat"
+        className="flex flex-col gap-2 sm:gap-4 font-montserrat"
       >
         {lyricsPages
           .slice(
@@ -110,7 +114,7 @@ const LyricsPage = () => {
           .map((text, index) => (
             <motion.p
               key={text}
-              className="text-3xl md:text-4xl font-bold text-white text-center w-full"
+              className="text-xl sm:text-3xl md:text-4xl font-bold text-white text-center w-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -120,7 +124,7 @@ const LyricsPage = () => {
           ))}
       </motion.div>
       <motion.div
-        className="flex gap-4 justify-center mt-20"
+        className="flex gap-2 sm:gap-4 justify-center mt-12 sm:mt-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -164,7 +168,8 @@ const LyricsPage = () => {
           </motion.button>
         </Tooltip>
       </motion.div>
-      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 w-1 bg-gray-700 rounded-md h-2/3 overflow-hidden">
+
+      <div className="absolute right-3 sm:right-2 lg:right-0 top-1/2 transform -translate-y-1/2 w-[2px] sm:w-1 bg-gray-700 h-1/2 sm:h-2/3">
         <div
           className="w-full bg-white transition-all duration-300"
           style={{ height: `${((currentPage + 1) / totalPages) * 100}%` }}
@@ -174,19 +179,19 @@ const LyricsPage = () => {
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-4"
+        className="absolute bottom-20 sm:bottom-20 left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-4"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="bg-gray-900 bg-opacity-90 rounded-lg p-4 flex items-center gap-6 w-auto shadow-lg"
+          className="bg-gray-900 bg-opacity-90 rounded-lg p-3 sm:p-4 flex items-center gap-3 sm:gap-6 w-auto shadow-lg"
         >
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="text-white text-lg font-semibold bg-gray-700 px-4 py-2 rounded-full hover:bg-gray-600 transition"
+            className="text-white text-base sm:text-lg font-semibold bg-gray-700 px-3 sm:px-4 py-2 rounded-full"
           >
-            {isPlaying ? <FaPause size={24} /> : <FaPlay size={24} />}
+            {isPlaying ? <FaPause size={20} /> : <FaPlay size={20} />}
           </button>
 
           <input
@@ -197,10 +202,10 @@ const LyricsPage = () => {
             onChange={(e) =>
               playerRef.current?.seek(parseFloat(e.target.value))
             }
-            className="w-40 h-1 bg-white rounded-lg appearance-none cursor-pointer"
+            className="w-24 sm:w-40 h-1 bg-white rounded-lg appearance-none cursor-pointer"
           />
-          <span className="text-white text-sm">
-            {formatTime(progress)} / {formatTime(duration)}
+          <span className="text-white text-xs sm:text-sm">
+            {formatTime(progress)}
           </span>
           <FiVolume2 size={20} className="text-white" />
           <motion.input
@@ -210,28 +215,30 @@ const LyricsPage = () => {
             step="0.01"
             value={volume}
             onChange={(e) => setVolume(parseFloat(e.target.value))}
-            className="w-0 h-1 bg-white rounded-lg appearance-none cursor-pointer"
+            className="w-12 sm:w-16 h-1 bg-white rounded-lg appearance-none cursor-pointer"
             initial={{ width: 0, opacity: 0 }}
-            animate={{ width: "4rem", opacity: 1 }}
+            animate={window.innerWidth < 640 ? "small" : "large"}
+            variants={volumeVariants}
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
           />
         </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-          className="bg-gray-900 bg-opacity-90 rounded-lg p-4 shadow-lg"
-        >
-          {" "}
-          <a
-            href={YOUTUBE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-red-500 hover:text-red-700 transition text-4xl"
+        <Tooltip text="Watch on YouTube">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+            className="bg-gray-900 bg-opacity-90 rounded-lg p-3 sm:p-4 shadow-lg"
           >
-            <FaYoutube />
-          </a>
-        </motion.div>
+            <a
+              href={YOUTUBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-red-500 hover:text-red-700 transition text-4xl"
+            >
+              <FaYoutube />
+            </a>
+          </motion.div>
+        </Tooltip>
       </motion.div>
 
       <Howler
@@ -247,9 +254,9 @@ const LyricsPage = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }}
           transition={{ duration: 0.5 }}
-          className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-gray-900 bg-opacity-90 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-4"
+          className="absolute top-10 sm:top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 bg-opacity-80 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg flex items-center gap-2 sm:gap-4 max-w-[90%] w-auto text-center"
         >
-          <p className="text-lg font-semibold">
+          <p className="text-sm sm:text-lg font-semibold">
             Scroll to move to the next page
           </p>
           <button

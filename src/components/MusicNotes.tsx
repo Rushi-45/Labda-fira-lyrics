@@ -7,13 +7,13 @@ const MusicImages = () => {
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        width={200} // Adjust size for better background effect
+        width={200}
         height={200}
         stroke="black"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="absolute left-10 top-1/4 -z-10 opacity-20" // Move behind the text
+        className="absolute left-4 sm:left-10 top-1/4 -z-10 opacity-20 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52"
         initial={{ strokeDasharray: 300, strokeDashoffset: 300 }}
         animate={{ strokeDashoffset: 0 }}
         transition={{ duration: 8, ease: "easeInOut", repeat: Infinity }}
@@ -30,7 +30,7 @@ const MusicImages = () => {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="absolute right-10 top-1/4 -z-10 opacity-20"
+        className="absolute right-4 sm:right-10 top-2/4 sm:top-1/4 -z-10 opacity-20 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-52 lg:h-52"
         initial={{ strokeDasharray: 300, strokeDashoffset: 300 }}
         animate={{ strokeDashoffset: 0 }}
         transition={{ duration: 8, ease: "easeInOut", repeat: Infinity }}
