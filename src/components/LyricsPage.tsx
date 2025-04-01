@@ -9,7 +9,7 @@ import { IIdleTimer, useIdleTimer } from "react-idle-timer";
 import { IoClose } from "react-icons/io5";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { Tooltip } from "./common/Tooltip";
-import YouTubeButton from "./YoutubeBUtton";
+import YouTubeButton from "./YoutubeButton";
 
 const LINES_PER_PAGE = 4;
 const volumeVariants = {
@@ -169,7 +169,7 @@ const LyricsPage = () => {
         </Tooltip>
       </motion.div>
 
-      <div className="absolute right-3 sm:right-2 lg:right-0 top-1/2 transform -translate-y-1/2 w-[2px] sm:w-1 bg-gray-700 h-1/2 sm:h-2/3">
+      <div className="absolute right-3 sm:right-2 lg:right-16 top-1/2 transform -translate-y-1/2 w-[2px] sm:w-1 bg-gray-700 h-1/2 sm:h-2/3">
         <div
           className="w-full bg-white transition-all duration-300"
           style={{ height: `${((currentPage + 1) / totalPages) * 100}%` }}
