@@ -37,6 +37,7 @@ const LyricsPage = () => {
     const interval = setInterval(() => {
       if (playerRef.current) {
         const seek = playerRef.current.seek() || 0;
+
         setProgress(seek);
       }
     }, 1000);
@@ -59,7 +60,7 @@ const LyricsPage = () => {
   };
 
   const { reset } = useIdleTimer({
-    timeout: 5000,
+    timeout: 15000,
     onIdle,
     debounce: 500,
     ref: idleTimerRef as React.RefObject<IIdleTimer>,
@@ -113,7 +114,7 @@ const LyricsPage = () => {
           )
           .map((text, index) => (
             <motion.p
-              key={text}
+              key={`${currentPage}-${index}`}
               className="text-xl sm:text-3xl md:text-4xl font-bold text-white text-center w-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

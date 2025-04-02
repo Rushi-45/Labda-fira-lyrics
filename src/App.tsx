@@ -8,7 +8,7 @@ const App = () => {
     <div className="h-screen w-full flex flex-col relative">
       <Background />
       <h1 className="font-montserrat text-4xl sm:text-5xl text-white absolute top-10 font-bold text-center w-full">
-        Labda Fira Lyrics
+        Labda Fira Lyrics - Taran Singh
       </h1>
       <MusicNotes />
 
